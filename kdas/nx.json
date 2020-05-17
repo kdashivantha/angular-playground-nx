@@ -18,5 +18,13 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "alexa": {
+      "tags": []
+    },
+    "alexa-e2e": {
+      "tags": [],
+      "implicitDependencies": ["alexa"]
+    }
+  }
 }
