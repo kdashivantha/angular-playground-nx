@@ -25,6 +25,9 @@
     "alexa-e2e": {
       "tags": [],
       "implicitDependencies": ["alexa"]
+    },
+    "ui": {
+      "tags": []
     }
   }
 }

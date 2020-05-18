@@ -23,7 +23,9 @@
             "aot": true,
             "assets": ["apps/alexa/src/favicon.ico", "apps/alexa/src/assets"],
             "styles": ["apps/alexa/src/styles.scss"],
-            "scripts": []
+            "scripts": [
+              "./node_modules/annyang/dist/annyang.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -118,6 +120,38 @@
             "tsConfig": ["apps/alexa-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/alexa-e2e/**"]
           }
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "kdas",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui/tsconfig.lib.json",
+              "libs/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "tsConfig": "libs/ui/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }
