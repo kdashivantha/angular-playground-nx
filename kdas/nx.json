@@ -28,6 +28,13 @@
     },
     "ui": {
       "tags": []
+    },
+    "cv-maker": {
+      "tags": []
+    },
+    "cv-maker-e2e": {
+      "tags": [],
+      "implicitDependencies": ["cv-maker"]
     }
   }
 }

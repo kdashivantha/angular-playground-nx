@@ -23,9 +23,7 @@
             "aot": true,
             "assets": ["apps/alexa/src/favicon.ico", "apps/alexa/src/assets"],
             "styles": ["apps/alexa/src/styles.scss"],
-            "scripts": [
-              "./node_modules/annyang/dist/annyang.min.js"
-            ]
+            "scripts": ["./node_modules/annyang/dist/annyang.min.js"]
           },
           "configurations": {
             "production": {
@@ -152,6 +150,129 @@
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "cv-maker": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/cv-maker",
+      "sourceRoot": "apps/cv-maker/src",
+      "prefix": "kdas",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/cv-maker",
+            "index": "apps/cv-maker/src/index.html",
+            "main": "apps/cv-maker/src/main.ts",
+            "polyfills": "apps/cv-maker/src/polyfills.ts",
+            "tsConfig": "apps/cv-maker/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/cv-maker/src/favicon.ico",
+              "apps/cv-maker/src/assets"
+            ],
+            "styles": ["apps/cv-maker/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/cv-maker/src/environments/environment.ts",
+                  "with": "apps/cv-maker/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "cv-maker:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "cv-maker:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cv-maker:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/cv-maker/tsconfig.app.json",
+              "apps/cv-maker/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/cv-maker/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/cv-maker/jest.config.js",
+            "tsConfig": "apps/cv-maker/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/cv-maker/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "cv-maker-e2e": {
+      "root": "apps/cv-maker-e2e",
+      "sourceRoot": "apps/cv-maker-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/cv-maker-e2e/cypress.json",
+            "tsConfig": "apps/cv-maker-e2e/tsconfig.e2e.json",
+            "devServerTarget": "cv-maker:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "cv-maker:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/cv-maker-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/cv-maker-e2e/**"]
+          }
         }
       }
     }
